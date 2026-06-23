@@ -9,6 +9,7 @@ Localhost single-user PoC; no auth, no concurrency handling beyond one client.
 from __future__ import annotations
 
 import asyncio
+import os
 from pathlib import Path
 
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
@@ -57,3 +58,15 @@ async def ws(socket: WebSocket):
             await asyncio.sleep(0.1)  # ~10 Hz
     except WebSocketDisconnect:
         pass
+
+
+if __name__ == "__main__":
+    # Convenience launcher: `python -m app.main`. Port defaults to 8077 to dodge
+    # the common 8000 clash; override with HP_PORT / HP_HOST.
+    import uvicorn
+
+    uvicorn.run(
+        app,
+        host=os.environ.get("HP_HOST", "127.0.0.1"),
+        port=int(os.environ.get("HP_PORT", "8077")),
+    )

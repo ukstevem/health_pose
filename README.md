@@ -31,19 +31,30 @@ Requires Python 3.10–3.12 (MediaPipe wheels) and a webcam.
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
-uvicorn app.main:app --reload
+python -m app.main          # serves on http://localhost:8077
 ```
 
-Open <http://localhost:8000>. Stand **side-on** so your hip, knee and ankle are
+Open <http://localhost:8077>. Stand **side-on** so your hip, knee and ankle are
 all visible. Hit **Reset** to zero the counter.
+
+Port **8077** is the default to avoid the common 8000 clash; change it with
+`HP_PORT`. To use uvicorn's auto-reload during development:
+`uvicorn app.main:app --reload --port 8077`.
 
 ### Config (env vars)
 
-| Var            | Default | Meaning                          |
-| -------------- | ------- | -------------------------------- |
-| `HP_CAM_INDEX` | `0`     | Which camera OpenCV opens        |
-| `HP_WIDTH`     | `960`   | Capture width                    |
-| `HP_HEIGHT`    | `540`   | Capture height                   |
+| Var            | Default     | Meaning                          |
+| -------------- | ----------- | -------------------------------- |
+| `HP_PORT`      | `8077`      | HTTP port                        |
+| `HP_HOST`      | `127.0.0.1` | Bind address                     |
+| `HP_CAM_INDEX` | `0`         | Which camera OpenCV opens        |
+| `HP_WIDTH`     | `960`       | Capture width                    |
+| `HP_HEIGHT`    | `540`       | Capture height                   |
+
+> **Why not Docker?** The server owns the webcam via OpenCV/DirectShow, and a
+> Linux container under Docker Desktop on Windows can't reach the host camera.
+> Containerizing would need the camera moved into the browser (MediaPipe JS) —
+> tracked as a possible later pivot, not done here.
 
 ## Tests
 
