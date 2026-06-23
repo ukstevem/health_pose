@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>health_pose — squat tracker</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <header>
+    <h1>health_pose</h1>
+    <div class="controls">
+      <label for="exercise">Exercise</label>
+      <select id="exercise">
+        <option value="squat">Squat</option>
+      </select>
+      <button id="reset">Reset</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="feed">
+      <img id="video" src="/video_feed" alt="annotated webcam feed" />
+    </section>
+
+    <section class="panel">
+      <div class="rep-counter">
+        <div id="reps" class="reps">0</div>
+        <div class="reps-label">reps</div>
+      </div>
+      <div class="cue" id="cue">Connecting…</div>
+      <dl class="stats">
+        <dt>Phase</dt><dd id="phase">—</dd>
+        <dt>Knee angle</dt><dd id="knee">—</dd>
+        <dt>Torso lean</dt><dd id="lean">—</dd>
+        <dt>Last rep</dt><dd id="lastrep">—</dd>
+      </dl>
+      <p class="hint">Stand <strong>side-on</strong> to the camera so your hip,
+        knee and ankle are all visible.</p>
+    </section>
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
